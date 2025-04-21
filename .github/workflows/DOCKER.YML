@@ -1,4 +1,4 @@
-name: Docker Build and Push to Docker Hub
+name: Docker CD
 
 on:
   push:
@@ -24,8 +24,8 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t your-dockerhub-username/your-image-name:latest .
+        docker build -t eubeatrizam/atp:latest .
 
     - name: Push Docker image to Docker Hub
       run: |
-        docker push your-dockerhub-username/your-image-name:latest
+        docker push eubeatrizam/atp:latest
