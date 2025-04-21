@@ -1,4 +1,4 @@
-name: Java CI (sem Maven ou Gradle)
+name: CI 
 
 on:
   push:
