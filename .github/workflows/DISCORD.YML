@@ -1,6 +1,7 @@
 name: Discord Webhook
 
-on: [push]
+on: 
+    - push
 
 jobs:
   git:
