@@ -133,4 +133,4 @@ while True:
         print(listaJogadores[i], pontos[i], 'pontos', end='\n')
     print()
 
-print("Fim de jogo!")
+print("Fim de Jogo!")
