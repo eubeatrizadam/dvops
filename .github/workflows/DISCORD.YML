@@ -16,6 +16,7 @@ jobs:
       - name: Send message to Discord
         uses: Sniddl/discord-commits@v1.6
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}  # Usando o webhook configurado nos secrets
+          webhook: ${{ secrets.DISCORD_WEBHOOK }} 
           template: "basic"
           include-extras: true
+          message: "O código foi atualizado com sucesso"
