@@ -13,10 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Send message to Discord
-        uses: Sniddl/discord-commits@v1.6
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }} 
-          template: "basic"
-          include-extras: true
-          message: "O código foi atualizado com sucesso"
+      - name: Send simple message to Discord
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"content": "Mensagem enviada com sucesso"}' \
+          ${{ secrets.DISCORD_WEBHOOK }}
