@@ -3,7 +3,7 @@ name: Discord Webhook
 on:
   push:
     branches:
-      - main
+      - main  # Ou qualquer outra branch que você deseja monitorar
 
 jobs:
   send_discord_message:
@@ -13,8 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Send simple message to Discord
-        run: |
-          curl -X POST -H "Content-Type: application/json" \
-          -d '{"content": "Novo código foi enviado para a branch main! 🚀"}' \
-          "https://discord.com/api/webhooks/1366917106876158043/i4_hO307GO677lk3LCkpbRcqjvC3lD5IrDD4aeoOI5Y5R7T31yHD6K4qYpck3EjoxFCX"
+      - name: Send message to Discord
+        uses: Sniddl/discord-commits@v1.6
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}  
+          template: "avatar-with-link"
+          include-extras: true
