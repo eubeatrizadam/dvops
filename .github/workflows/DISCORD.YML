@@ -16,5 +16,5 @@ jobs:
       - name: Send simple message to Discord
         run: |
           curl -X POST -H "Content-Type: application/json" \
-          -d '{"content": "Mensagem enviada com sucesso"}' \
-          ${{ secrets.DISCORD_WEBHOOK }}
+          -d '{"content": "Novo código foi enviado para a branch main! 🚀"}' \
+          "https://discord.com/api/webhooks/1366917106876158043/i4_hO307GO677lk3LCkpbRcqjvC3lD5IrDD4aeoOI5Y5R7T31yHD6K4qYpck3EjoxFCX"
