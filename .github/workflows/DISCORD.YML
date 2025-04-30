@@ -17,5 +17,5 @@ jobs:
         uses: Sniddl/discord-commits@v1.6
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}  # Armazenar o webhook no GitHub Secrets
-          template: "avatar-with-link"
+          template: "basic"
           include-extras: true
