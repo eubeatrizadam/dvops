@@ -1,17 +1,40 @@
-from src.main import *
-from unittest.mock import patch
+import unittest
+from collections import Counter
 
-def soma(a, b):
-    return a + b
+def dadoVerde():
+    return ("C", "P", "C", "T", "P", "C")
 
-def test_soma():
-    assert soma(2, 3) == 5
+def dadoAmarelo():
+    return ("T", "P", "C", "T", "P", "C")
 
-def test_soma_negativos():
-    assert soma(-2, -3) == -5
+def dadoVermelho():
+    return ("T", "P", "T", "C", "P", "T")
 
-def multi(a, b):
-    return a * b
+class TestZombieDice(unittest.TestCase):
 
-def test_multi():
-    assert multi(2, 2) == 4
+    def test_dado_verde(self):
+        dado = dadoVerde()
+        self.assertEqual(len(dado), 6)
+        contagem = Counter(dado)
+        self.assertEqual(contagem['C'], 3)
+        self.assertEqual(contagem['P'], 2)
+        self.assertEqual(contagem['T'], 1)
+
+    def test_dado_amarelo(self):
+        dado = dadoAmarelo()
+        self.assertEqual(len(dado), 6)
+        contagem = Counter(dado)
+        self.assertEqual(contagem['C'], 2)
+        self.assertEqual(contagem['P'], 2)
+        self.assertEqual(contagem['T'], 2)
+
+    def test_dado_vermelho(self):
+        dado = dadoVermelho()
+        self.assertEqual(len(dado), 6)
+        contagem = Counter(dado)
+        self.assertEqual(contagem['C'], 1)
+        self.assertEqual(contagem['P'], 2)
+        self.assertEqual(contagem['T'], 3)
+
+if __name__ == '__main__':
+    unittest.main()
