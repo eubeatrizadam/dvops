@@ -36,5 +36,12 @@ class TestZombieDice(unittest.TestCase):
         self.assertEqual(contagem['P'], 2)
         self.assertEqual(contagem['T'], 3)
 
+    def test_jogadores_inicialmente_vazios(self):
+    self.assertEqual(listaJogadores, [])
+
+    def test_pontuacao_inicial(self):
+        # Supondo 0 jogadores inicialmente
+        self.assertTrue(all(p == 0 for p in pontos))
+
 if __name__ == '__main__':
     unittest.main()
