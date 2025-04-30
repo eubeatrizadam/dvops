@@ -51,7 +51,7 @@ if __name__ == "__main__":
     pontos = [0] * numJogadores
 
     def sorteamentoDados():
-        nonlocal dadosSorteados
+        global dadosSorteados
         for _ in range(3):
             dado = random.choice(listaDados)
             cor = (
@@ -88,4 +88,28 @@ if __name__ == "__main__":
 
         if tiros > 2:
             print(f'Você perdeu essa rodada! Levou {tiros} tiros\n')
-            tiros = cerebros = passos =
+            tiros = cerebros = passos = 0
+            dadosSorteados.clear()
+            jogadorAtual = (jogadorAtual + 1) % numJogadores
+            print('Indo para a próxima rodada, jogador:', listaJogadores[jogadorAtual])
+            continue
+
+        continuar = input('\nVocê deseja continuar? [S/N] ').strip().upper()
+        if continuar == "N":
+            pontos[jogadorAtual] += cerebros
+            jogadorAtual = (jogadorAtual + 1) % numJogadores
+            dadosSorteados.clear()
+            tiros = cerebros = passos = 0
+
+        if pontos[jogadorAtual] >= 13:
+            print('Parabéns', listaJogadores[jogadorAtual], 'você VENCEU!!!')
+            break
+
+        dadosSorteados.clear()
+
+        print("\nPLACAR ATUAL:")
+        for i in range(numJogadores):
+            print(f"{listaJogadores[i]}: {pontos[i]} ponto(s)")
+        print()
+
+    print("Fim de Jogo!")
