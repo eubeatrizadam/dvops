@@ -1,5 +1,6 @@
 import unittest
 from collections import Counter
+from src.main import listaJogadores, pontos
 
 def dadoVerde():
     return ("C", "P", "C", "T", "P", "C")
