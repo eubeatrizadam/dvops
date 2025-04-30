@@ -3,7 +3,7 @@ name: Discord Webhook
 on:
   push:
     branches:
-      - atpbranch
+      - main
 
 jobs:
   send_discord_message:
