@@ -29,10 +29,3 @@ jobs:
     - name: Push Docker image to Docker Hub
       run: |
         docker push eubeatrizam/atp:latest
-
-    - name: Send simple message to Discord
-      run: |
-        curl -X POST -H "Content-Type: application/json" \
-        -d '{"content": "Novo código foi enviado para a branch main! 🚀"}' \
-        ${{ secrets.DISCORD_WEBHOOK }}
-  
