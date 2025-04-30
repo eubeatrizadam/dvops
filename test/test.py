@@ -1,5 +1,6 @@
 import unittest
 from collections import Counter
+from src.main import listaJogadores, pontos, dadoVerde, dadoAmarelo, dadoVermelho
 
 def dadoVerde():
     return ("C", "P", "C", "T", "P", "C")
@@ -35,6 +36,12 @@ class TestZombieDice(unittest.TestCase):
         self.assertEqual(contagem['C'], 1)
         self.assertEqual(contagem['P'], 2)
         self.assertEqual(contagem['T'], 3)
+
+    def test_jogadores_inicialmente_vazios(self):
+        self.assertEqual(listaJogadores, [])
+
+    def test_pontuacao_inicial(self):
+        self.assertTrue(all(p == 0 for p in pontos))
 
 if __name__ == '__main__':
     unittest.main()

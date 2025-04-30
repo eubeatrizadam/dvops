@@ -1,136 +1,115 @@
 import random
 from time import sleep
 
-print("\n ZOMBIE DICE \n")
-print("Seja bem-vindo ao jogo Zombie Dice!\n")
-
-#Dados dos Jogadores, limite de pessoas definido 2+
-numJogadores = 0
-
-while (numJogadores < 2):
-    numJogadores = int(input("Informe a quantidade de jogadores: "))
-    print("O total de jogadores é {}".format (numJogadores))
-
-    if (numJogadores < 2):
-        print("AVISO: Você precisa de pelo menos 2 jogadores!")
-
+# Variáveis globais para testes e execução
 listaJogadores = []
-
-for c in range (0, numJogadores):
-    nome = input(f'Digite o nome do {c + 1}º jogador: ').upper()
-    listaJogadores.append(nome)
-
-def dadoVerde():
-    dadoVerde = ("C", "P", "C", "T", "P", "C")
-    return dadoVerde
-
-def dadoAmarelo():
-    dadoAmarelo = ("T", "P", "C", "T", "P", "C")
-    return dadoAmarelo
-
-def dadoVermelho():
-    dadoVermelho = ("T", "P", "T", "C", "P", "T")
-    return dadoVermelho
-
-listaDados = [
-    dadoVerde(), dadoVerde(), dadoVerde(), dadoVerde(), dadoVerde(), dadoVerde(),
-    dadoAmarelo(), dadoAmarelo(), dadoAmarelo(), dadoAmarelo(),
-    dadoVermelho(), dadoVermelho(), dadoVermelho()
-]
-    # Lista de dados previamente estipulada pelo enunciado da questão
-
-
-print("\nIniciando o jogo!\n")
-
-jogadorAtual = 0
-dadosSorteados = []
-tiros = 0
-cerebros = 0
-passos = 0
 pontos = []
 
-#contador de pontos
-for i in range(0, numJogadores):
-    pontos.append(0)
-#sorteador de dados
-def sorteamentoDados (corDado = ()):
-    for n in range (0, 3):
-        numSorteado = random.randrange(13)
-        dadoSorteado = listaDados[numSorteado]
-        if dadoSorteado == dadoVerde():
-            corDado = "VERDE"
-        elif dadoSorteado == dadoAmarelo():
-            corDado = "AMARELO"
-        elif dadoSorteado == dadoVermelho():
-            corDado = "VERMELHO"
+def dadoVerde():
+    return ("C", "P", "C", "T", "P", "C")
 
-        print("O dado sorteado foi", corDado)
-        dadosSorteados.append(dadoSorteado)
+def dadoAmarelo():
+    return ("T", "P", "C", "T", "P", "C")
+
+def dadoVermelho():
+    return ("T", "P", "T", "C", "P", "T")
+
+# Executa o jogo apenas se for o script principal
+if __name__ == "__main__":
+    print("\n ZOMBIE DICE \n")
+    print("Seja bem-vindo ao jogo Zombie Dice!\n")
+
+    # Leitura do número de jogadores
+    numJogadores = 0
+    while numJogadores < 2:
+        numJogadores = int(input("Informe a quantidade de jogadores: "))
+        print(f"O total de jogadores é {numJogadores}")
+        if numJogadores < 2:
+            print("AVISO: Você precisa de pelo menos 2 jogadores!")
+
+    # Cadastro dos jogadores
+    for c in range(numJogadores):
+        nome = input(f'Digite o nome do {c + 1}º jogador: ').upper()
+        listaJogadores.append(nome)
+
+    # Lista de dados do jogo
+    listaDados = (
+        [dadoVerde()] * 6 +
+        [dadoAmarelo()] * 4 +
+        [dadoVermelho()] * 3
+    )
+
+    print("\nIniciando o jogo!\n")
+
+    jogadorAtual = 0
+    dadosSorteados = []
+    tiros = 0
+    cerebros = 0
+    passos = 0
+
+    # Inicializa os pontos de todos os jogadores com 0
+    pontos = [0] * numJogadores
+
+    def sorteamentoDados():
+        global dadosSorteados
+        for _ in range(3):
+            dado = random.choice(listaDados)
+            cor = (
+                "VERDE" if dado == dadoVerde() else
+                "AMARELO" if dado == dadoAmarelo() else
+                "VERMELHO"
+            )
+            print("O dado sorteado foi", cor)
+            dadosSorteados.append(dado)
+            sleep(1)
+
+    while True:
+        print('Turno do jogador:', listaJogadores[jogadorAtual])
+
+        sorteamentoDados()
+
+        for dado in dadosSorteados:
+            face = random.choice(dado)
+            if face == "C":
+                print('Você comeu um CÉREBRO!')
+                cerebros += 1
+            elif face == "T":
+                print('Você levou um TIRO!')
+                tiros += 1
+            else:
+                print('Você tirou um PASSO! Sua vítima escapou!')
+                passos += 1
         sleep(1)
 
-while True:
+        print("\n===SCORE ATUAL===")
+        print("CÉREBROS:", cerebros)
+        print("PASSOS -", passos)
+        print("TIROS:", tiros)
 
-    print('Turno do jogador: ', listaJogadores[jogadorAtual])
+        if tiros > 2:
+            print(f'Você perdeu essa rodada! Levou {tiros} tiros\n')
+            tiros = cerebros = passos = 0
+            dadosSorteados.clear()
+            jogadorAtual = (jogadorAtual + 1) % numJogadores
+            print('Indo para a próxima rodada, jogador:', listaJogadores[jogadorAtual])
+            continue
 
-    sorteamentoDados()
-#sorteio das faces
-    for dadoSorteado in dadosSorteados:
-        numFaces = random.randint(0, 5)
-        if dadoSorteado[numFaces] == "C":
-            print('Você comeu um CÉREBRO!')
-            cerebros += 1
-
-        elif dadoSorteado[numFaces] == "T":
-            print('Você levou um TIRO!')
-            tiros += 1
-
-        else:
-            print('Você tirou um PASSO! Sua vítima escapou!')
-            passos += 1
-    sleep(1)
-
-    print("\n===SCORE ATUAL===")
-    print("CÉREBROS: ", cerebros)
-    print("PASSOS - ", passos)
-    print("TIROS: ", tiros)
-
-# Soma a quantidade de passos, tiros e score do jogador
-
-    if tiros > 2:
-        print('Você perdeu essa rodada! Levou, ', tiros, ' tiros\n')
-        tiros = 0
-        cerebros = 0
-        passos = 0
-        dadosSorteados = []
-        jogadorAtual += 1
-
-        if jogadorAtual == len(listaJogadores):
-            jogadorAtual = 0
-            print('Indo para a próxima rodada, jogador: ', listaJogadores[jogadorAtual])
-
-    else:
-        continuarTurno = str(input('\nVocê deseja continuar? [S/N] ')).strip().upper()[0]
-        print("\n")
-        if (continuarTurno == "N"):
+        continuar = input('\nVocê deseja continuar? [S/N] ').strip().upper()
+        if continuar == "N":
             pontos[jogadorAtual] += cerebros
-            jogadorAtual += 1
-            dadosSorteados = []
-            tiros = 0
-            cerebros = 0
-            passos = 0
+            jogadorAtual = (jogadorAtual + 1) % numJogadores
+            dadosSorteados.clear()
+            tiros = cerebros = passos = 0
 
-            if (jogadorAtual == len(listaJogadores)):
-                jogadorAtual = 0
+        if pontos[jogadorAtual] >= 13:
+            print('Parabéns', listaJogadores[jogadorAtual], 'você VENCEU!!!')
+            break
 
-    if pontos [jogadorAtual] >= 13:
-        print('Parabéns', listaJogadores[jogadorAtual], 'você VENCEU!!!')
-        #print("Finalizando o protótipo do jogo")
-        break
+        dadosSorteados.clear()
 
-    dadosSorteados.clear()
+        print("\nPLACAR ATUAL:")
+        for i in range(numJogadores):
+            print(f"{listaJogadores[i]}: {pontos[i]} ponto(s)")
+        print()
 
-    for i in range (0, numJogadores):
-        print(listaJogadores[i], pontos[i], 'pontos', end='\n')
-    print()
-
-print("Fim de Jogo!")
+    print("Fim de Jogo!")
