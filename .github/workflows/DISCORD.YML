@@ -17,4 +17,4 @@ jobs:
       with:
         webhook: ${{ secrets.DISCORD_WEBHOOK }}
         template: "basic"
-        include-extras: true
+        
