@@ -1,20 +1,21 @@
 name: Discord Webhook
 
 on:
-  push:
-    branches:
-      - atpbranch
+  pull_request:
+    types: [closed]  # Aciona o workflow quando o PR for fechado (mesclado ou não)
 
 jobs:
-  git:
+  send_discord_message:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true  # Garantir que o PR foi mesclado
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - uses: actions/checkout@v2
-
-    - name: Discord Commits
-      uses: Sniddl/discord-commits@v1.6
-      with:
-        webhook: ${{ secrets.DISCORD_WEBHOOK }}
-        template: "basic"
-        
+      - name: Send message to Discord
+        uses: Sniddl/discord-commits@v1.6
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}  # Armazenar o webhook no GitHub Secrets
+          template: "avatar-with-link"
+          include-extras: true
