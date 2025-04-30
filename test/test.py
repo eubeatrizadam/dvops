@@ -1,6 +1,6 @@
 import unittest
 from collections import Counter
-from src.main import listaJogadores, pontos
+from src.main import listaJogadores, pontos, dadoVerde, dadoAmarelo, dadoVermelho
 
 def dadoVerde():
     return ("C", "P", "C", "T", "P", "C")
