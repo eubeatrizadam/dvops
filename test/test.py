@@ -13,5 +13,5 @@ def test_soma_negativos():
 def multi(a, b):
     return a * b
 
-def test_multi
+def test_multi():
     assert multi(2, 2) == 4
